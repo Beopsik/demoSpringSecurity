@@ -28,11 +28,11 @@ public class SecurityConfig{
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withUsername("user")
-                .password("123")
+                .password("{noop}123")
                 .roles("USER")
                 .build();
         UserDetails admin = User.withUsername("admin")
-                .password("123")
+                .password("{noop}123")
                 .roles("ADMIN")
                 .build();
         UserDetails[] userDetails = new UserDetails[2];
