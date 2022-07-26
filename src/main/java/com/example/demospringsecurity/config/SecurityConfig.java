@@ -38,6 +38,9 @@ public class SecurityConfig{
         http.httpBasic();
 //        http.csrf().disable();
 
+        http.logout()
+                .logoutSuccessUrl("/");
+
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
         return http.build();
     }
