@@ -1,6 +1,7 @@
 package com.example.demospringsecurity.config;
 
 import com.example.demospringsecurity.account.AccountService;
+import com.example.demospringsecurity.common.LoggingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +42,8 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.addFilterBefore(new LoggingFilter(), WebAsyncManagerIntegrationFilter.class);
+
         http.authorizeRequests()
                 .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
