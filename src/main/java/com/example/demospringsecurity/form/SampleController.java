@@ -1,8 +1,12 @@
 package com.example.demospringsecurity.form;
 
+import com.example.demospringsecurity.account.Account;
 import com.example.demospringsecurity.account.AccountRepository;
+import com.example.demospringsecurity.account.UserAccount;
+import com.example.demospringsecurity.common.CurrentUser;
 import com.example.demospringsecurity.common.SecurityLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +25,11 @@ public class SampleController {
     SampleService sampleService;
 
     @GetMapping("/")
-    public String index(Model model, Principal principal){
-        if (principal == null) {
+    public String index(Model model, @CurrentUser Account account){
+        if (account == null) {
             model.addAttribute("message", "Hello Spring Security");
         }else{
-            model.addAttribute("message", "Hello " + principal.getName());
+            model.addAttribute("message", "Hello " + account.getUsername());
         }
         return "index";
     }
