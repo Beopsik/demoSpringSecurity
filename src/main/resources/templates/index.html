@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,11 +9,11 @@
 </head>
 <body>
     <h1 th:text="${message}">Hello</h1>
-    <div th:if="${#authorization.expr('isAuthenticated()')}">
-        <h2 th:text="${#authentication.name}"></h2>
+    <div sec:authorize-expr="isAuthenticated()">
+        <h2 sec:authentication="name"></h2>
         <a href="/logout" th:href="@{/logout}">Logout</a>
     </div>
-    <div th:unless="${#authorization.expr('isAuthenticated()')}">
+    <div sec:authorize-expr="!isAuthenticated()">
         <a href="/login" th:href="@{/login}">Login</a>
     </div>
 </body>
