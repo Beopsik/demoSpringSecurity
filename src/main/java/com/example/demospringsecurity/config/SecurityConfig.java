@@ -42,6 +42,9 @@ public class SecurityConfig{
         http.logout()
                 .logoutSuccessUrl("/");
 
+        http.sessionManagement()
+                .invalidSessionUrl("/");
+
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
         return http.build();
     }
