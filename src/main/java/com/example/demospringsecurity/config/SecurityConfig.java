@@ -35,8 +35,7 @@ public class SecurityConfig{
                 .expressionHandler(expressionHandler());
 
         http.formLogin()
-                .usernameParameter("my-username")
-                .passwordParameter("my-password");
+                .loginPage("/login").permitAll();
         http.httpBasic();
 //        http.csrf().disable();
 
